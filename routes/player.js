@@ -17,34 +17,9 @@ router.post('/play-song', (req, res) => {
   }
 
   songName = req.body.songName;
-
-  //const songPath = path.join(routerDir, 'music', `${songName}.flac`);
-
-  fs.readdir('./music', (err, files) => {
-    files.forEach(file => {
-      const fileParts = file.split('-');
- 
-      const target = `${songName}.flac`;
-      const targetParts = target.split('-');
-      
-      // Check band Name
-      if(targetParts[0] === fileParts[0]){
-	// Check album name
-        if(targetParts[1] === fileParts[1]){
-	  // Check track number
-	  
-
-          const tTrack = targetParts[2].split('')[1] + targetParts[2].split('')[2];
-          const fTrack = fileParts[2].split('')[1] + fileParts[2].split('')[2];
-
-          if(tTrack === fTrack){
-            if(audioPlayer && audioPlayer.running) { return; }
-            audioPlayer = audio(`./music/${file}`);
-          } 
-        }
-      }     
-    })
-  })
+  const songPath = path.join(routerDir, 'music', `${songName}.flac`);
+  audioPlayer = audio(songPath);
+  
   res.redirect('/');
 });
 
@@ -57,6 +32,7 @@ router.post('/stop', (req, res) => {
 const killPlayer = () => {
   console.log('Stopping song');
   audioPlayer.quit();
+  audioPlayer = null;
   songName = '';
 }
 
