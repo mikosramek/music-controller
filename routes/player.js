@@ -34,12 +34,12 @@ router.post('/play-song', (req, res) => {
 	  // Check track number
 	  
 
+          const tTrack = targetParts[2].split('')[1] + targetParts[2].split('')[2];
+          const fTrack = fileParts[2].split('')[1] + fileParts[2].split('')[2];
 
-
-
-          if(targetParts[2].split('')[2] === fileParts[2].split('')[2]){
-           audioPlayer = audio(`./music/${file}`);
-           return;
+          if(tTrack === fTrack){
+            if(audioPlayer && audioPlayer.running) { return; }
+            audioPlayer = audio(`./music/${file}`);
           } 
         }
       }     
