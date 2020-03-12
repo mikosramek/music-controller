@@ -14,6 +14,22 @@ const routerDir = require('../util/path');
 
 const router = express.Router();
 
+//audioPlayer = audio('./music/In Love With A Ghost - healing - 01 introduction.flac');
+
+console.log('왜 그래'.split(''));
+
+const read = (path) => {
+  fs.readdir(path, (err, files) => {
+    console.log(files);
+    files.forEach(file => {
+      audioPlayer = audio(`./music/${file}`);
+    })
+  })
+}
+
+read('./music');
+
+
 router.post('/play-song', (req, res) => {
   
   if(audioPlayer && audioPlayer.running) {
@@ -21,18 +37,10 @@ router.post('/play-song', (req, res) => {
   }
 
   songName = req.body.songName;
-  console.log(songName, 'song has been requested');
-  const songPath = path.join(routerDir, 'music', `${req.body.songName}.flac`);
-
-  console.log(toUnicode(songPath));
+  console.log(songName, 'has been requested');
+  const songPath = path.join(routerDir, 'music', `${songName}.flac`);
 
   audioPlayer = audio(songPath);
-//if (fs.existsSync(songPath)) {
-    //console.log('it exists');
-    //audioPlayer = audio.play(songPath, (err) => {
-      //if(err) throw err;
-    //});
-  //}
   res.redirect('/');
 });
 
