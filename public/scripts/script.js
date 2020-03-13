@@ -1,16 +1,22 @@
 let currentSong = '';
 
-const playSong = function(songName) {
-  $('#current').text(`Currently playing: ${songName}`);
+const playSong = function(song) {
+  $('#current').text(`Currently playing: ${song.track} by ${song.artist}`);
   const base = window.location.origin;
   $.ajax(
     {
       url: `${base}/play-song`,
       method: 'POST',
       dataType: 'json',
-      data: {"songName":songName}
+      data: {
+        "artist": song.artist,
+        "album": song.album,
+        "track":song.track,
+      }
     }
-  );
+  ).then(data => {
+    console.log(data);
+  });
 }
 
 const stopSong = function() {
@@ -31,9 +37,10 @@ const bindSongs = function() {
 
     if(currentSong) currentSong.css({background:'none'});
 
-    const song = $(this).text();
+    const song = $(this).data();
     currentSong = $(this);
     currentSong.css({background:'#c5efff'});
+    console.log(song);
     playSong(song);
   });
   $('#stop').on('click', function() {
