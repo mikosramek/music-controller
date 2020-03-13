@@ -15,9 +15,10 @@ html(lang="en")
       .wrapper
         ul#songs.album-list
           each album in albums
-            li
+            li.album-data
               h2 #{album.artist}
               h3 #{album.album}
+              button play album
               ul.album
                 each track in album.tracks
                   li(data-artist=album.artist data-album=album.album data-track=track) #{track.replace('.flac', '')}

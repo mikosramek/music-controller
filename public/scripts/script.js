@@ -32,11 +32,26 @@ const stopSong = function() {
   );
 }
 
+const playAlbum = function(album) {
+  $('#current').text(`Currently playing: ${album[0].track} by ${album[0].artist}`);
+  const base = window.location.origin;
+  $.ajax(
+    {
+      url: `${base}/play-album`,
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        "album":album
+      }
+    }
+  ).then(data => {
+    console.log(data);
+  });
+}
+
 const bindSongs = function() {
   $('.album li').on('click', function() {
-
     if(currentSong) currentSong.css({background:'none'});
-
     const song = $(this).data();
     currentSong = $(this);
     currentSong.css({background:'#c5efff'});
@@ -45,6 +60,14 @@ const bindSongs = function() {
   $('#stop').on('click', function() {
     stopSong();
   })
+  $('.album-data button').on('click', function() {
+    const tracks = $(this).siblings('ul').children('li');
+    const albumData = [];
+    for(let i = 0; i < tracks.length; i++){
+      albumData.push($(tracks[i]).data());
+    }
+    playAlbum(albumData);
+  });
 }
 
 const checkIfPlaying = function() {
