@@ -30,7 +30,6 @@ router.post('/stop', (req, res) => {
 
 
 const killPlayer = () => {
-  console.log('Stopping song');
   audioPlayer.quit();
   audioPlayer = null;
   songName = '';
