@@ -20,7 +20,7 @@ html(lang="en")
               h3 #{album.album}
               ul.album
                 each track in album.tracks
-                  li(data-artist=album.artist data-album=album.album data-track=track) #{track}
+                  li(data-artist=album.artist data-album=album.album data-track=track) #{track.replace('.flac', '')}
 
 
 

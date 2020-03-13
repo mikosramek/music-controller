@@ -18,16 +18,16 @@ const init = async () => {
   const artistFolders = await getFiles('./music');
   for(let i = 0; i < artistFolders.length; i++){
     const artist = artistFolders[i]
-    if(artist !== '.DS_Store'){
+    if(artist.charAt(0) !== '.'){
       const albumFolders = await getFiles(`./music/${artist}`);
       for(let n = 0; n < albumFolders.length; n++){
         const album = albumFolders[n];
-        if(album !== '.DS_Store'){
+        if(album.charAt(0) !== '.'){
           const songs = await getFiles(`./music/${artist}/${album}`);
           const tracks = [];
           for(let x = 0; x < songs.length; x++){
             const song = songs[x];
-            if(song !== 'cover.jpg'){
+            if(song !== 'cover.jpg' && song.charAt(0) !== '.'){
               tracks.push(song);
             }
           }

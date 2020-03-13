@@ -40,7 +40,6 @@ const bindSongs = function() {
     const song = $(this).data();
     currentSong = $(this);
     currentSong.css({background:'#c5efff'});
-    console.log(song);
     playSong(song);
   });
   $('#stop').on('click', function() {
@@ -58,7 +57,7 @@ const checkIfPlaying = function() {
     }
   ).then( data => {
     if(data) {
-      $('#current').text(`Currently playing: ${data.song}`);
+      $('#current').text(`Currently playing: ${data.song.replace('.flac', '')}`);
     }
   } );
 }

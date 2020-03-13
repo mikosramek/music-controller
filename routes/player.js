@@ -19,15 +19,15 @@ router.post('/play-song', (req, res) => {
   }
 
   const {artist, album, track} = req.body;
+  songName = track;
   const songPath = path.join(routerDir, 'music', artist, album, track);
   audioPlayer = audio(songPath);
-  
-  res.status(200).send(audioPlayer.info());
+  res.status(200).send('hi :)');
 });
 
 router.post('/stop', (req, res) => {
   if(audioPlayer && audioPlayer.running) killPlayer();
-  res.status(200).send();
+  res.status(200).send('bye :(');
 })
 
 
