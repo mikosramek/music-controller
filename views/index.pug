@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Music Player
+    link(rel="stylesheet", href="/styles/style.css")
+  body
+    header
+      .wrapper
+        h1 Miko's Music Player
+        p#current Currently playing: nothing
+        button#stop &block;
+    main
+      .wrapper
+        ul#songs.album-list
+          each album in albums
+            li
+              h2 #{album.artist}
+              h3 #{album.album}
+              ul.album
+                each track in album.tracks
+                  li(data-artist=album.artist data-album=album.album data-track=track) #{track}
+
+
+
+  script(src="https://code.jquery.com/jquery-3.4.0.min.js")
+  script(src="scripts/script.js")
